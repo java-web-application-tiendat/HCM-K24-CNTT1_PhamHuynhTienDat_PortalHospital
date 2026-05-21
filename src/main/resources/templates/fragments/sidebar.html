@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="sidebar(role)" class="sidebar">
+
+    <div>
+
+        <h2>K24 Hospital</h2>
+
+        <div th:if="${role == 'ADMIN'}">
+
+            <a href="/admin/dashboard">Dashboard</a>
+
+            <a href="/admin/medicines">
+                Quản lý thuốc
+            </a>
+
+            <a href="/admin/prescriptions">
+                Duyệt đơn thuốc
+            </a>
+
+            <a href="/admin/specialties">
+                Xem chuyên khoa
+            </a>
+
+            <a href="/admin/test-types">
+                Xem loại xét nghiệm
+            </a>
+
+            <a href="/admin/profile">
+                Hồ sơ cá nhân
+            </a>
+
+        </div>
+
+        <div th:if="${role == 'DOCTOR'}">
+
+            <a href="/doctor/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/doctor/appointments">
+                Lịch khám
+            </a>
+
+
+
+        </div>
+
+        <div th:if="${role == 'PATIENT'}">
+
+            <a href="/patient/dashboard">
+                Dashboard
+            </a>
+
+            <a href="/patient/history">
+                Lịch sử khám
+            </a>
+            <a href="/patient/book">
+                Đặt lịch khám
+            </a>
+
+            <a href="/patient/appointments">
+                Lịch hẹn của tôi
+            </a>
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

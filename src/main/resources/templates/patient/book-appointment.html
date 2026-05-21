@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Đặt lịch khám','dashboard.css')}"></head>
+
+<body>
+
+<div class="layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar('PATIENT')}"></div>
+
+    <div class="main-content">
+
+        <div th:replace="~{fragments/navbar :: navbar('Đặt lịch khám')}"></div>
+
+        <div class="content">
+
+            <form class="form-card"
+                  th:action="@{/patient/book}"
+                  method="post">
+
+                <h2 style="margin-bottom:24px;color:#064e3b;">
+                    Đặt lịch khám
+                </h2>
+
+                <div th:if="${param.conflict}"
+                     class="badge badge-danger"
+                     style="margin-bottom:20px;">
+
+                    Khung giờ này đã có người đặt
+
+                </div>
+
+                <div th:if="${param.success}"
+                     class="badge badge-success"
+                     style="margin-bottom:20px;">
+
+                    Đặt lịch thành công
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        Chọn bác sĩ
+                    </label>
+
+                    <select class="form-input"
+                            name="doctorId"
+                            required>
+
+                        <option value="">
+                            -- Chọn bác sĩ --
+                        </option>
+
+                        <option th:each="d : ${doctors}"
+                                th:value="${d.id}"
+                                th:text="${d.user.username + ' - ' + d.specialty.name}">
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        Ngày khám
+                    </label>
+
+                    <input class="form-input"
+                           type="date"
+                           name="appointmentDate"
+                           required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        Giờ khám
+                    </label>
+
+                    <input class="form-input"
+                           type="time"
+                           name="appointmentTime"
+                           required>
+
+                </div>
+
+                <button class="submit-btn" type="submit">
+
+                    Đặt lịch khám
+
+                </button>
+
+            </form>
+
+        </div>
+        <div th:if="${param.success}" class="alert alert-success">
+            Đặt lịch khám thành công.
+        </div>
+
+        <div th:if="${param.conflict}" class="alert alert-danger">
+            Khung giờ này đã có bệnh nhân khác đặt. Vui lòng chọn giờ khác.
+        </div>
+
+        <div th:if="${param.past}" class="alert alert-danger">
+            Không thể đặt lịch ở ngày hoặc giờ trong quá khứ.
+        </div>
+
+        <div th:if="${param.doctorNotFound}" class="alert alert-danger">
+            Không tìm thấy bác sĩ. Vui lòng chọn lại.
+        </div>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+package com.k24.hospital.controller;
+
+import com.k24.hospital.enums.PrescriptionStatus;
+import com.k24.hospital.repository.PrescriptionRepository;
+import com.k24.hospital.service.PrescriptionService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/admin/prescriptions")
+public class PrescriptionController {
+
+    private final PrescriptionRepository prescriptionRepository;
+    private final PrescriptionService prescriptionService;
+
+    @GetMapping
+    public String list(Model model) {
+        model.addAttribute(
+                "prescriptions",
+                prescriptionRepository.findByStatus(PrescriptionStatus.WAITING_DISPENSE)
+        );
+        return "admin/prescriptions";
+    }
+
+    @GetMapping("/dispense/{id}")
+    public String dispense(@PathVariable Long id) {
+        prescriptionService.dispensePrescription(id);
+        return "redirect:/admin/prescriptions";
+    }
+}

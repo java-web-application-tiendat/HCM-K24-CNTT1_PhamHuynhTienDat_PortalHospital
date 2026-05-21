@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Lịch hẹn của tôi','dashboard.css')}"></head>
+
+<body>
+<div class="layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar('PATIENT')}"></div>
+
+    <div class="main-content">
+        <div th:replace="~{fragments/navbar :: navbar('Lịch hẹn của tôi')}"></div>
+
+        <div class="content">
+
+            <div th:if="${param.success}" class="badge badge-success">
+                Đặt lịch thành công
+            </div>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Bác sĩ</th>
+                    <th>Chuyên khoa</th>
+                    <th>Ngày khám</th>
+                    <th>Giờ khám</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="a : ${appointments}">
+                    <td th:text="${a.id}"></td>
+                    <td th:text="${a.doctor.user.username}"></td>
+                    <td th:text="${a.doctor.specialty.name}"></td>
+                    <td th:text="${a.appointmentDate}"></td>
+                    <td th:text="${a.appointmentTime}"></td>
+                    <td>
+                        <span class="badge badge-warning" th:text="${a.status}"></span>
+                    </td>
+                    <td>
+                        <a class="action-btn delete-btn"
+                           th:if="${a.status.name() == 'WAITING'}"
+                           th:href="@{/patient/appointments/cancel/{id}(id=${a.id})}"
+                           onclick="return confirm('Bạn chắc chắn muốn hủy lịch này?')">
+                            Hủy lịch
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div style="text-align: center" th:if="${param.cancelled}" class="badge badge-success">
+            Hủy lịch thành công
+        </div>
+        <div th:replace="~{fragments/footer :: footer}"></div>
+    </div>
+</div>
+</body>
+</html>

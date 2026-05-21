@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Danh mục loại xét nghiệm','dashboard.css')}"></head>
+
+<body>
+<div class="layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar('ADMIN')}"></div>
+
+    <div class="main-content">
+
+        <div th:replace="~{fragments/navbar :: navbar('Danh mục loại xét nghiệm')}"></div>
+
+        <div class="content">
+
+            <h1>Danh mục loại xét nghiệm</h1>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên loại xét nghiệm</th>
+                    <th>Mô tả</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="t : ${testTypes}">
+                    <td th:text="${t.id}"></td>
+                    <td th:text="${t.name}"></td>
+                    <td th:text="${t.description}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+
+    </div>
+</div>
+</body>
+</html>

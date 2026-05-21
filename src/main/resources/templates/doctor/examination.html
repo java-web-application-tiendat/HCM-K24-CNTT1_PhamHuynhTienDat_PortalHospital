@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Khám bệnh','dashboard.css')}"></head>
+
+<body>
+<div class="layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar('DOCTOR')}"></div>
+
+    <div class="main-content">
+        <div th:replace="~{fragments/navbar :: navbar('Khám bệnh và kê đơn')}"></div>
+
+        <div class="content">
+
+            <form class="form-card"
+                  th:action="@{/doctor/examination/save}"
+                  method="post">
+
+                <input type="hidden" name="appointmentId" th:value="${appointmentId}">
+
+                <div class="form-group">
+                    <label class="form-label">Triệu chứng</label>
+                    <textarea class="form-textarea"
+                              name="symptoms"
+                              required
+                              placeholder="Nhập triệu chứng..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Chẩn đoán</label>
+                    <textarea class="form-textarea"
+                              name="diagnosis"
+                              required
+                              placeholder="Nhập chẩn đoán..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Ghi chú</label>
+                    <textarea class="form-textarea"
+                              name="note"
+                              placeholder="Ghi chú thêm..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Chọn thuốc</label>
+                    <select class="form-input" name="medicineId" required>
+                        <option value="">-- Chọn thuốc --</option>
+                        <option th:each="m : ${medicines}"
+                                th:value="${m.id}"
+                                th:text="${m.name + ' - Tồn kho: ' + m.quantity}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Số lượng</label>
+                    <input class="form-input"
+                           type="number"
+                           name="quantity"
+                           min="1"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Liều dùng</label>
+                    <input class="form-input"
+                           type="text"
+                           name="dosage"
+                           placeholder="VD: Uống 2 viên/ngày"
+                           required>
+                </div>
+
+                <button class="submit-btn" type="submit">
+                    Lưu kết quả khám
+                </button>
+
+            </form>
+
+        </div>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+    </div>
+</div>
+</body>
+</html>

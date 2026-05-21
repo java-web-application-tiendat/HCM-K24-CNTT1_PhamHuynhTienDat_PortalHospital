@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Doctor Dashboard', 'dashboard.css')}"></head>
+
+<body>
+
+<div class="layout">
+
+  <div th:replace="~{fragments/sidebar :: sidebar('DOCTOR')}"></div>
+
+  <div class="main-content">
+
+    <div th:replace="~{fragments/navbar :: navbar('Doctor Dashboard')}"></div>
+
+    <div class="content">
+
+      <h1>Trang bác sĩ</h1>
+
+      <div class="card-grid">
+
+        <a class="card"
+           href="/doctor/appointments">
+
+          Bệnh nhân chờ khám
+
+        </a>
+
+        <a class="card"
+           href="/doctor/profile">
+
+          Hồ sơ cá nhân
+
+        </a>
+
+      </div>
+
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

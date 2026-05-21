@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Đăng ký', 'auth.css')}"></head>
+
+<body>
+
+<div class="auth-card">
+
+    <div class="logo">+</div>
+
+    <h2>Đăng ký bệnh nhân</h2>
+
+    <p class="subtitle">
+        Tạo tài khoản để đặt lịch khám
+    </p>
+
+
+    <!-- ========================= -->
+    <!-- THÔNG BÁO THÀNH CÔNG -->
+    <!-- ========================= -->
+    <div class="alert success"
+         th:if="${param.registered}">
+
+        Đăng ký thành công. Hãy đăng nhập.
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- USERNAME ĐÃ TỒN TẠI -->
+    <!-- ========================= -->
+    <div class="alert error"
+         th:if="${param.exists}">
+
+        Tên đăng nhập đã tồn tại.
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- FORM -->
+    <!-- ========================= -->
+    <form th:action="@{/register}"
+          method="post"
+          th:object="${user}">
+
+        <input type="text"
+               th:field="*{username}"
+               placeholder="Tên đăng nhập"
+               required>
+
+        <input type="email"
+               th:field="*{email}"
+               placeholder="Email"
+               required>
+
+        <input type="password"
+               th:field="*{password}"
+               placeholder="Mật khẩu"
+               required>
+
+        <button type="submit">
+
+            Đăng ký
+
+        </button>
+
+    </form>
+
+
+    <p class="link-text">
+
+        Đã có tài khoản?
+
+        <a th:href="@{/login}">
+
+            Đăng nhập
+
+        </a>
+
+    </p>
+
+</div>
+
+</body>
+</html>

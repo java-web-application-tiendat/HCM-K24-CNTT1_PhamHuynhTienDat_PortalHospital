@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('K24 Hospital', 'index.css')}"></head>
+<body>
+
+<div class="hero">
+
+    <nav class="top-nav">
+        <div class="brand">
+            <div class="brand-icon">+</div>
+            <span>K24 Hospital</span>
+        </div>
+
+        <div class="nav-actions">
+            <a th:href="@{/login}" class="nav-link">Đăng nhập</a>
+            <a th:href="@{/register}" class="nav-btn">Đăng ký</a>
+        </div>
+    </nav>
+
+    <section class="hero-content">
+
+        <div class="hero-text">
+            <div class="badge">Nền tảng Y tế Số</div>
+
+            <h1>Cổng thông tin bệnh viện hiện đại</h1>
+
+            <p>
+                Hỗ trợ bệnh nhân đặt lịch khám, bác sĩ tiếp nhận ca khám,
+                quản lý hồ sơ y tế và cấp phát thuốc nhanh chóng.
+            </p>
+
+            <div class="hero-buttons">
+                <a th:href="@{/register}" class="primary-btn">Đặt lịch khám</a>
+                <a th:href="@{/login}" class="secondary-btn">Đăng nhập hệ thống</a>
+            </div>
+        </div>
+
+        <div class="hero-card">
+            <h3>Chức năng chính</h3>
+
+            <div class="feature">Đăng ký / Đăng nhập bảo mật</div>
+            <div class="feature">Đặt lịch khám chống trùng slot</div>
+            <div class="feature">Bác sĩ khám và kê đơn thuốc</div>
+            <div class="feature">Quản lý tồn kho và cấp phát thuốc</div>
+        </div>
+
+    </section>
+
+</div>
+
+</body>
+</html>

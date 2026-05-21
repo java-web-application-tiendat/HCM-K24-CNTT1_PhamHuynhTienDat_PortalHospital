@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Lịch chờ khám','dashboard.css')}"></head>
+
+<body>
+<div class="layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar('DOCTOR')}"></div>
+
+    <div class="main-content">
+        <div th:replace="~{fragments/navbar :: navbar('Lịch chờ khám')}"></div>
+
+        <div class="content">
+            <h1>Danh sách bệnh nhân chờ khám</h1>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Bệnh nhân</th>
+                    <th>Ngày khám</th>
+                    <th>Giờ khám</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="a : ${appointments}">
+                    <td th:text="${a.id}"></td>
+                    <td th:text="${a.patient.username}"></td>
+                    <td th:text="${a.appointmentDate}"></td>
+                    <td th:text="${a.appointmentTime}"></td>
+                    <td>
+                        <span class="badge badge-warning" th:text="${a.status}"></span>
+                    </td>
+                    <td>
+                        <a class="action-btn edit-btn"
+                           th:href="@{/doctor/examination/{id}(id=${a.id})}">
+                            Khám bệnh
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Admin Dashboard','dashboard.css')}"></head>
+
+<body>
+
+<div class="layout">
+
+  <div th:replace="~{fragments/sidebar :: sidebar('ADMIN')}"></div>
+
+  <div class="main-content">
+
+    <div th:replace="~{fragments/navbar :: navbar('Admin Dashboard')}"></div>
+
+    <div class="content">
+
+      <h1>Trang quản trị Admin</h1>
+
+      <div class="card-grid">
+
+        <div class="stat-card">
+          <span>Tổng người dùng</span>
+          <strong th:text="${dashboard.totalUsers}">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Bác sĩ</span>
+          <strong th:text="${dashboard.totalDoctors}">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Bệnh nhân</span>
+          <strong th:text="${dashboard.totalPatients}">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Lịch chờ khám</span>
+          <strong th:text="${dashboard.waitingAppointments}">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Lịch đã khám</span>
+          <strong th:text="${dashboard.completedAppointments}">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Lịch đã hủy</span>
+          <strong th:text="${dashboard.cancelledAppointments}">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Tổng thuốc</span>
+          <strong th:text="${dashboard.totalMedicines}">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Thuốc sắp hết</span>
+          <strong th:text="${dashboard.lowStockMedicines}">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Đơn chờ duyệt</span>
+          <strong th:text="${dashboard.waitingPrescriptions}">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Đơn đã cấp phát</span>
+          <strong th:text="${dashboard.dispensedPrescriptions}">0</strong>
+        </div>
+
+        <div class="stat-card">
+          <span>Hồ sơ bệnh án</span>
+          <strong th:text="${dashboard.totalMedicalRecords}">0</strong>
+        </div>
+
+      </div>
+
+      <h2 class="section-title">Chức năng quản trị</h2>
+
+      <div class="card-grid">
+
+        <a class="card" href="/admin/medicines">
+          Quản lý thuốc
+        </a>
+
+        <a class="card" href="/admin/prescriptions">
+          Duyệt đơn thuốc
+        </a>
+
+        <a class="card" href="/admin/specialties">
+          Xem chuyên khoa
+        </a>
+
+        <a class="card" href="/admin/test-types">
+          Xem loại xét nghiệm
+        </a>
+
+        <a class="card" href="/admin/profile">
+          Hồ sơ cá nhân
+        </a>
+
+      </div>
+
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

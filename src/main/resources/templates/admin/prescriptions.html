@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Cấp phát thuốc','dashboard.css')}"></head>
+
+<body>
+<div class="layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar('ADMIN')}"></div>
+
+    <div class="main-content">
+
+        <div th:replace="~{fragments/navbar :: navbar('Cấp phát thuốc')}"></div>
+
+        <div class="content">
+
+            <h1>Đơn thuốc chờ cấp phát</h1>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ngày tạo</th>
+                    <th>Trạng thái</th>
+                    <th>Chi tiết thuốc</th>
+                    <th>Thao tác</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="p : ${prescriptions}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.createdAt}"></td>
+                    <td>
+                        <span class="badge badge-warning"
+                              th:text="${p.status}">
+                        </span>
+                    </td>
+
+                    <td>
+                        <div th:each="d : ${p.details}">
+                            <span th:text="${d.medicine.name}"></span>
+                            -
+                            SL:
+                            <span th:text="${d.quantity}"></span>
+                            -
+                            <span th:text="${d.dosage}"></span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <a class="action-btn edit-btn"
+                           th:href="@{/admin/prescriptions/dispense/{id}(id=${p.id})}"
+                           onclick="return confirm('Xác nhận phát thuốc?')">
+                            Xác nhận phát thuốc
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+
+    </div>
+</div>
+</body>
+</html>

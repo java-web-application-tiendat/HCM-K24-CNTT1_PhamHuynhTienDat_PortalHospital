@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Quản lý thuốc','dashboard.css')}"></head>
+
+<body>
+<div class="layout">
+
+  <div th:replace="~{fragments/sidebar :: sidebar('ADMIN')}"></div>
+
+  <div class="main-content">
+    <div th:replace="~{fragments/navbar :: navbar('Quản lý thuốc')}"></div>
+
+    <div class="content">
+      <a class="card" th:href="@{/admin/medicines/add}">+ Thêm thuốc</a>
+
+      <table>
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tên thuốc</th>
+          <th>Đơn vị</th>
+          <th>Số lượng</th>
+          <th>Giá</th>
+          <th>Mô tả</th>
+          <th>Thao tác</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="m : ${medicines}">
+          <td th:text="${m.id}"></td>
+          <td th:text="${m.name}"></td>
+          <td th:text="${m.unit}"></td>
+          <td th:text="${m.quantity}"></td>
+          <td th:text="${m.price}"></td>
+          <td th:text="${m.description}"></td>
+          <td>
+            <a th:href="@{/admin/medicines/edit/{id}(id=${m.id})}">Sửa</a>
+            |
+            <a th:href="@{/admin/medicines/delete/{id}(id=${m.id})}"
+               onclick="return confirm('Xóa thuốc này?')">Xóa</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </div>
+</div>
+</body>
+</html>

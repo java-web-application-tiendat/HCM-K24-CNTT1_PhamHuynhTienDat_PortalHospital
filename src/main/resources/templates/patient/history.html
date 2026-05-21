@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head('Lịch sử khám','dashboard.css')}"></head>
+
+<body>
+
+<div class="layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar('PATIENT')}"></div>
+
+    <div class="main-content">
+
+        <div th:replace="~{fragments/navbar :: navbar('Lịch sử khám bệnh')}"></div>
+
+        <div class="content">
+
+            <h1>Lịch sử khám bệnh</h1>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Bác sĩ</th>
+                    <th>Ngày khám</th>
+                    <th>Triệu chứng</th>
+                    <th>Chẩn đoán</th>
+                    <th>Thuốc đã kê</th>
+                    <th>Ghi chú</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="r : ${records}">
+                    <td th:text="${r.id}"></td>
+
+                    <td th:text="${r.appointment.doctor.user.username}"></td>
+
+                    <td th:text="${r.createdAt}"></td>
+
+                    <td th:text="${r.symptoms}"></td>
+
+                    <td th:text="${r.diagnosis}"></td>
+
+                    <td>
+                        <div th:each="p : ${r.prescriptions}">
+                            <div th:each="d : ${p.details}">
+                                <span th:text="${d.medicine.name}"></span>
+                                -
+                                SL:
+                                <span th:text="${d.quantity}"></span>
+                                -
+                                <span th:text="${d.dosage}"></span>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td th:text="${r.note}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div th:replace="~{fragments/footer :: footer}"></div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
