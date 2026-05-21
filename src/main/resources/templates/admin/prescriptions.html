@@ -61,6 +61,20 @@
 
         </div>
 
+        <div th:if="${param.success}"
+             class="alert alert-success">
+
+            Cấp phát thuốc thành công.
+
+        </div>
+
+        <div th:if="${param.stockError}"
+             class="alert alert-danger">
+
+            Không đủ số lượng thuốc trong kho.
+
+        </div>
+
         <div th:replace="~{fragments/footer :: footer}"></div>
 
     </div>

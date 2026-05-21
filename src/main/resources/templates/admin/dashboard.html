@@ -13,11 +13,19 @@
 
     <div th:replace="~{fragments/navbar :: navbar('Admin Dashboard')}"></div>
 
-    <div class="content">
+    <div class="content admin-dashboard">
 
-      <h1>Trang quản trị Admin</h1>
+      <div class="page-header">
+        <div>
+          <p class="page-badge">K24 Hospital Portal</p>
+          <h1>Trang quản trị Admin</h1>
+          <p class="page-subtitle">
+            Theo dõi tổng quan hệ thống, lịch khám, thuốc và hồ sơ bệnh án.
+          </p>
+        </div>
+      </div>
 
-      <div class="card-grid">
+      <div class="stats-grid">
 
         <div class="stat-card">
           <span>Tổng người dùng</span>
@@ -34,17 +42,17 @@
           <strong th:text="${dashboard.totalPatients}">0</strong>
         </div>
 
-        <div class="stat-card">
+        <div class="stat-card warning">
           <span>Lịch chờ khám</span>
           <strong th:text="${dashboard.waitingAppointments}">0</strong>
         </div>
 
-        <div class="stat-card">
+        <div class="stat-card success">
           <span>Lịch đã khám</span>
           <strong th:text="${dashboard.completedAppointments}">0</strong>
         </div>
 
-        <div class="stat-card">
+        <div class="stat-card danger">
           <span>Lịch đã hủy</span>
           <strong th:text="${dashboard.cancelledAppointments}">0</strong>
         </div>
@@ -54,17 +62,17 @@
           <strong th:text="${dashboard.totalMedicines}">0</strong>
         </div>
 
-        <div class="stat-card">
+        <div class="stat-card danger">
           <span>Thuốc sắp hết</span>
           <strong th:text="${dashboard.lowStockMedicines}">0</strong>
         </div>
 
-        <div class="stat-card">
+        <div class="stat-card warning">
           <span>Đơn chờ duyệt</span>
           <strong th:text="${dashboard.waitingPrescriptions}">0</strong>
         </div>
 
-        <div class="stat-card">
+        <div class="stat-card success">
           <span>Đơn đã cấp phát</span>
           <strong th:text="${dashboard.dispensedPrescriptions}">0</strong>
         </div>
@@ -78,26 +86,31 @@
 
       <h2 class="section-title">Chức năng quản trị</h2>
 
-      <div class="card-grid">
+      <div class="admin-action-grid">
 
-        <a class="card" href="/admin/medicines">
-          Quản lý thuốc
+        <a class="admin-action-card" href="/admin/medicines">
+          <h3>Quản lý thuốc</h3>
+          <p>Thêm, xem, sửa, xóa danh mục thuốc.</p>
         </a>
 
-        <a class="card" href="/admin/prescriptions">
-          Duyệt đơn thuốc
+        <a class="admin-action-card" href="/admin/prescriptions">
+          <h3>Duyệt đơn thuốc</h3>
+          <p>Kiểm tra đơn chờ cấp phát và trừ tồn kho.</p>
         </a>
 
-        <a class="card" href="/admin/specialties">
-          Xem chuyên khoa
+        <a class="admin-action-card" href="/admin/specialties">
+          <h3>Xem chuyên khoa</h3>
+          <p>Danh mục chuyên khoa được seed sẵn.</p>
         </a>
 
-        <a class="card" href="/admin/test-types">
-          Xem loại xét nghiệm
+        <a class="admin-action-card" href="/admin/test-types">
+          <h3>Xem loại xét nghiệm</h3>
+          <p>Danh mục loại xét nghiệm nền tảng.</p>
         </a>
 
-        <a class="card" href="/admin/profile">
-          Hồ sơ cá nhân
+        <a class="admin-action-card" href="/admin/profile">
+          <h3>Hồ sơ cá nhân</h3>
+          <p>Cập nhật thông tin tài khoản quản trị.</p>
         </a>
 
       </div>

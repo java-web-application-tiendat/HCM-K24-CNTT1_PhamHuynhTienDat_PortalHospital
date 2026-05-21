@@ -1,89 +1,133 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments/head :: head('Đăng nhập', 'auth.css')}"></head>
+<head th:replace="~{fragments/head :: head('Đăng nhập','auth.css')}"></head>
 
 <body>
 
-<div class="auth-card">
+<div class="auth-wrapper">
 
-    <div class="logo">+</div>
+    <!-- LEFT -->
+    <div class="auth-left">
 
-    <h2>Đăng nhập</h2>
+        <div class="overlay"></div>
 
-    <p class="subtitle">
-        Truy cập hệ thống bệnh viện
-    </p>
+        <div class="hospital-content">
 
+            <div class="hospital-logo">
+                +
+            </div>
 
-    <!-- ========================= -->
-    <!-- ĐĂNG KÝ THÀNH CÔNG -->
-    <!-- ========================= -->
-    <div class="alert success"
-         th:if="${param.registered}">
+            <h1>K24 Hospital Portal</h1>
 
-        Đăng ký thành công.
+            <p>
+                Hệ thống quản lý bệnh viện hiện đại,
+                hỗ trợ đặt lịch khám, quản lý hồ sơ
+                và cấp phát thuốc nhanh chóng.
+            </p>
 
-    </div>
+            <div class="hospital-features">
 
+                <div class="feature-item">
+                    Đặt lịch khám online
+                </div>
 
-    <!-- ========================= -->
-    <!-- LOGIN FAIL -->
-    <!-- ========================= -->
-    <div class="alert error"
-         th:if="${param.error}">
+                <div class="feature-item">
+                    Quản lý hồ sơ bệnh án
+                </div>
 
-        Sai tài khoản hoặc mật khẩu.
+                <div class="feature-item">
+                    Theo dõi đơn thuốc
+                </div>
 
-    </div>
+            </div>
 
-
-    <!-- ========================= -->
-    <!-- LOGOUT -->
-    <!-- ========================= -->
-    <div class="alert success"
-         th:if="${param.logout}">
-
-        Đăng xuất thành công.
+        </div>
 
     </div>
 
+    <!-- RIGHT -->
+    <div class="auth-right">
 
-    <!-- ========================= -->
-    <!-- FORM LOGIN -->
-    <!-- ========================= -->
-    <form th:action="@{/login}" method="post">
+        <div class="auth-card">
 
-        <input type="text"
-               name="username"
-               placeholder="Tên đăng nhập"
-               required>
+            <div class="mobile-logo">
+                +
+            </div>
 
-        <input type="password"
-               name="password"
-               placeholder="Mật khẩu"
-               required>
+            <h2>Đăng nhập</h2>
 
-        <button type="submit">
+            <p class="subtitle">
+                Truy cập hệ thống bệnh viện
+            </p>
 
-            Đăng nhập
+            <!-- SUCCESS -->
+            <div th:if="${param.registered}"
+                 class="alert success">
 
-        </button>
+                Đăng ký thành công.
+            </div>
 
-    </form>
+            <!-- ERROR -->
+            <div th:if="${param.error}"
+                 class="alert error">
 
+                Sai tài khoản hoặc mật khẩu.
+            </div>
 
-    <p class="link-text">
+            <!-- LOGOUT -->
+            <div th:if="${param.logout}"
+                 class="alert success">
 
-        Chưa có tài khoản?
+                Đăng xuất thành công.
+            </div>
 
-        <a th:href="@{/register}">
+            <form th:action="@{/login}"
+                  method="post">
 
-            Đăng ký
+                <div class="input-group">
 
-        </a>
+                    <label>Tên đăng nhập</label>
 
-    </p>
+                    <input type="text"
+                           name="username"
+                           placeholder="Nhập tài khoản"
+                           required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Mật khẩu</label>
+
+                    <input type="password"
+                           name="password"
+                           placeholder="Nhập mật khẩu"
+                           required>
+
+                </div>
+
+                <button type="submit">
+
+                    Đăng nhập
+
+                </button>
+
+            </form>
+
+            <p class="link-text">
+
+                Chưa có tài khoản?
+
+                <a th:href="@{/register}">
+                    Đăng ký ngay
+                </a>
+
+            </p>
+
+        </div>
+
+    </div>
 
 </div>
 

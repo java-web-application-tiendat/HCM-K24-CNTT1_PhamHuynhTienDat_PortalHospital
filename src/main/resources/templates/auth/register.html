@@ -1,85 +1,131 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments/head :: head('Đăng ký', 'auth.css')}"></head>
+<head th:replace="~{fragments/head :: head('Đăng ký','auth.css')}"></head>
 
 <body>
 
-<div class="auth-card">
+<div class="auth-wrapper">
 
-    <div class="logo">+</div>
+    <!-- LEFT -->
+    <div class="auth-left">
 
-    <h2>Đăng ký bệnh nhân</h2>
+        <div class="overlay"></div>
 
-    <p class="subtitle">
-        Tạo tài khoản để đặt lịch khám
-    </p>
+        <div class="hospital-content">
 
+            <div class="hospital-logo">
+                +
+            </div>
 
-    <!-- ========================= -->
-    <!-- THÔNG BÁO THÀNH CÔNG -->
-    <!-- ========================= -->
-    <div class="alert success"
-         th:if="${param.registered}">
+            <h1>K24 Hospital Portal</h1>
 
-        Đăng ký thành công. Hãy đăng nhập.
+            <p>
+                Tạo tài khoản để đặt lịch khám,
+                xem lịch sử bệnh án và theo dõi
+                đơn thuốc nhanh chóng.
+            </p>
+
+            <div class="hospital-features">
+
+                <div class="feature-item">
+                    Khám bệnh trực tuyến
+                </div>
+
+                <div class="feature-item">
+                    Đặt lịch dễ dàng
+                </div>
+
+                <div class="feature-item">
+                    Bảo mật thông tin
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
+    <!-- RIGHT -->
+    <div class="auth-right">
 
-    <!-- ========================= -->
-    <!-- USERNAME ĐÃ TỒN TẠI -->
-    <!-- ========================= -->
-    <div class="alert error"
-         th:if="${param.exists}">
+        <div class="auth-card">
 
-        Tên đăng nhập đã tồn tại.
+            <div class="mobile-logo">
+                +
+            </div>
+
+            <h2>Đăng ký</h2>
+
+            <p class="subtitle">
+                Tạo tài khoản bệnh nhân
+            </p>
+
+            <!-- EXIST -->
+            <div th:if="${param.exists}"
+                 class="alert error">
+
+                Tên đăng nhập đã tồn tại.
+            </div>
+
+            <form th:action="@{/register}"
+                  method="post"
+                  th:object="${user}">
+
+                <div class="input-group">
+
+                    <label>Tên đăng nhập</label>
+
+                    <input type="text"
+                           th:field="*{username}"
+                           placeholder="Tên đăng nhập"
+                           required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Email</label>
+
+                    <input type="email"
+                           th:field="*{email}"
+                           placeholder="Nhập email"
+                           required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Mật khẩu</label>
+
+                    <input type="password"
+                           th:field="*{password}"
+                           placeholder="Nhập mật khẩu"
+                           required>
+
+                </div>
+
+                <button type="submit">
+
+                    Đăng ký
+
+                </button>
+
+            </form>
+
+            <p class="link-text">
+
+                Đã có tài khoản?
+
+                <a th:href="@{/login}">
+                    Đăng nhập
+                </a>
+
+            </p>
+
+        </div>
 
     </div>
-
-
-    <!-- ========================= -->
-    <!-- FORM -->
-    <!-- ========================= -->
-    <form th:action="@{/register}"
-          method="post"
-          th:object="${user}">
-
-        <input type="text"
-               th:field="*{username}"
-               placeholder="Tên đăng nhập"
-               required>
-
-        <input type="email"
-               th:field="*{email}"
-               placeholder="Email"
-               required>
-
-        <input type="password"
-               th:field="*{password}"
-               placeholder="Mật khẩu"
-               required>
-
-        <button type="submit">
-
-            Đăng ký
-
-        </button>
-
-    </form>
-
-
-    <p class="link-text">
-
-        Đã có tài khoản?
-
-        <a th:href="@{/login}">
-
-            Đăng nhập
-
-        </a>
-
-    </p>
 
 </div>
 

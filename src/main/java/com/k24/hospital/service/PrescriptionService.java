@@ -22,22 +22,28 @@ public class PrescriptionService {
 
         Prescription prescription = prescriptionRepository
                 .findById(prescriptionId)
-                .orElse(null);
-
-        if (prescription == null) {
-            return;
-        }
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn thuốc"));
 
         if (prescription.getStatus() == PrescriptionStatus.DISPENSED) {
-            return;
+            throw new RuntimeException("Đơn thuốc đã được cấp phát");
         }
 
+
         for (PrescriptionDetail detail : prescription.getDetails()) {
+
             Medicine medicine = detail.getMedicine();
 
             if (medicine.getQuantity() < detail.getQuantity()) {
-                throw new RuntimeException("Không đủ thuốc trong kho: " + medicine.getName());
+                throw new RuntimeException(
+                        "Không đủ thuốc trong kho: " + medicine.getName()
+                );
             }
+        }
+
+
+        for (PrescriptionDetail detail : prescription.getDetails()) {
+
+            Medicine medicine = detail.getMedicine();
 
             medicine.setQuantity(
                     medicine.getQuantity() - detail.getQuantity()
@@ -46,7 +52,9 @@ public class PrescriptionService {
             medicineRepository.save(medicine);
         }
 
+
         prescription.setStatus(PrescriptionStatus.DISPENSED);
+
         prescriptionRepository.save(prescription);
     }
 }

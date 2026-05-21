@@ -27,7 +27,19 @@ public class PrescriptionController {
 
     @GetMapping("/dispense/{id}")
     public String dispense(@PathVariable Long id) {
-        prescriptionService.dispensePrescription(id);
-        return "redirect:/admin/prescriptions";
+
+        try {
+
+
+            prescriptionService.dispensePrescription(id);
+
+
+            return "redirect:/admin/prescriptions?success";
+
+        } catch (RuntimeException e) {
+
+
+            return "redirect:/admin/prescriptions?stockError";
+        }
     }
 }
