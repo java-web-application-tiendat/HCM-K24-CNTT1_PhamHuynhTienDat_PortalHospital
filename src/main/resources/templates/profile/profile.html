@@ -50,6 +50,7 @@
                            type="text"
                            th:field="*{fullName}"
                            placeholder="Nhập họ tên">
+                    <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
                 </div>
 
                 <div class="form-group">
@@ -58,6 +59,7 @@
                            type="text"
                            th:field="*{phone}"
                            placeholder="Nhập số điện thoại">
+                    <span class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
                 </div>
 
                 <div class="form-group">
@@ -66,6 +68,7 @@
                            type="text"
                            th:field="*{address}"
                            placeholder="Nhập địa chỉ">
+                    <span class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
                 </div>
 
                 <div class="form-group">
@@ -73,6 +76,7 @@
                     <input class="form-input"
                            type="date"
                            th:field="*{dateOfBirth}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
                 </div>
 
                 <div class="form-group">
@@ -83,6 +87,7 @@
                         <option value="FEMALE">Nữ</option>
                         <option value="OTHER">Khác</option>
                     </select>
+                    <span class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
                 </div>
 
                 <button class="submit-btn" type="submit">

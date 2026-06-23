@@ -31,8 +31,8 @@
           <input class="form-input"
                  type="text"
                  th:field="*{name}"
-                 placeholder="Nhập tên thuốc..."
-                 required>
+                 placeholder="Nhập tên thuốc...">
+          <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 
         </div>
 
@@ -45,8 +45,8 @@
           <input class="form-input"
                  type="text"
                  th:field="*{unit}"
-                 placeholder="Ví dụ: Viên, Chai..."
-                 required>
+                 placeholder="Ví dụ: Viên, Chai...">
+          <span class="text-danger" th:if="${#fields.hasErrors('unit')}" th:errors="*{unit}"></span>
 
         </div>
 
@@ -59,8 +59,8 @@
           <input class="form-input"
                  type="number"
                  th:field="*{quantity}"
-                 placeholder="Nhập số lượng..."
-                 required>
+                 placeholder="Nhập số lượng...">
+          <span class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></span>
 
         </div>
 
@@ -75,6 +75,7 @@
                  step="0.01"
                  th:field="*{price}"
                  placeholder="Nhập giá thuốc...">
+          <span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
 
         </div>
 
@@ -88,6 +89,7 @@
                     th:field="*{description}"
                     placeholder="Nhập mô tả thuốc...">
                     </textarea>
+          <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
 
         </div>
 

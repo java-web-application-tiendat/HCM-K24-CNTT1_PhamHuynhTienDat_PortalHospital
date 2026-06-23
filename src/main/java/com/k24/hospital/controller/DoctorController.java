@@ -1,10 +1,8 @@
 package com.k24.hospital.controller;
 
-import com.k24.hospital.entity.Doctor;
-import com.k24.hospital.entity.User;
-import com.k24.hospital.enums.AppointmentStatus;
-import com.k24.hospital.repository.*;
+import com.k24.hospital.service.AppointmentService;
 import com.k24.hospital.service.MedicalRecordService;
+import com.k24.hospital.service.MedicineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,10 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/doctor")
 public class DoctorController {
 
-    private final UserRepository userRepository;
-    private final DoctorRepository doctorRepository;
-    private final AppointmentRepository appointmentRepository;
-    private final MedicineRepository medicineRepository;
+    private final AppointmentService appointmentService;
+    private final MedicineService medicineService;
     private final MedicalRecordService medicalRecordService;
 
     @GetMapping("/dashboard")
@@ -29,23 +25,17 @@ public class DoctorController {
 
     @GetMapping("/appointments")
     public String appointments(Authentication authentication, Model model) {
-        User user = userRepository.findByUsername(authentication.getName()).orElse(null);
-
-        Doctor doctor = doctorRepository.findByUser(user).orElse(null);
-
         model.addAttribute(
                 "appointments",
-                appointmentRepository.findByDoctorAndStatus(doctor, AppointmentStatus.WAITING)
+                appointmentService.getWaitingAppointmentsForDoctor(authentication.getName())
         );
-
         return "doctor/appointments";
     }
 
     @GetMapping("/examination/{id}")
     public String examinationForm(@PathVariable Long id, Model model) {
         model.addAttribute("appointmentId", id);
-        model.addAttribute("medicines", medicineRepository.findAll());
-
+        model.addAttribute("medicines", medicineService.findAll());
         return "doctor/examination";
     }
 
@@ -68,7 +58,6 @@ public class DoctorController {
                 quantity,
                 dosage
         );
-
         return "redirect:/doctor/appointments";
     }
 }

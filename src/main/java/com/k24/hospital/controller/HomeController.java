@@ -2,7 +2,7 @@ package com.k24.hospital.controller;
 
 import com.k24.hospital.entity.User;
 import com.k24.hospital.enums.Role;
-import com.k24.hospital.repository.UserRepository;
+import com.k24.hospital.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -12,19 +12,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @GetMapping("/")
     public String home(Authentication authentication) {
-
         if (authentication == null ||
                 !authentication.isAuthenticated() ||
                 authentication.getPrincipal().equals("anonymousUser")) {
-
             return "index";
         }
 
-        User user = userRepository
+        User user = userService
                 .findByUsername(authentication.getName())
                 .orElse(null);
 
@@ -45,8 +43,7 @@ public class HomeController {
 
     @GetMapping("/redirect-by-role")
     public String redirectByRole(Authentication authentication) {
-
-        User user = userRepository
+        User user = userService
                 .findByUsername(authentication.getName())
                 .orElse(null);
 

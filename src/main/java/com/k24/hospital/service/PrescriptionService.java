@@ -7,6 +7,7 @@ import com.k24.hospital.enums.PrescriptionStatus;
 import com.k24.hospital.repository.MedicineRepository;
 import com.k24.hospital.repository.PrescriptionRepository;
 import jakarta.transaction.Transactional;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -56,5 +57,9 @@ public class PrescriptionService {
         prescription.setStatus(PrescriptionStatus.DISPENSED);
 
         prescriptionRepository.save(prescription);
+    }
+
+    public List<Prescription> getPrescriptionsByStatus(PrescriptionStatus status) {
+        return prescriptionRepository.findByStatus(status);
     }
 }

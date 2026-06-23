@@ -1,8 +1,8 @@
 package com.k24.hospital.controller;
 
 import com.k24.hospital.service.AdminDashboardService;
-import com.k24.hospital.repository.SpecialtyRepository;
-import com.k24.hospital.repository.TestTypeRepository;
+import com.k24.hospital.service.SpecialtyService;
+import com.k24.hospital.service.TestTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AdminController {
 
     private final AdminDashboardService adminDashboardService;
-    private final SpecialtyRepository specialtyRepository;
-    private final TestTypeRepository testTypeRepository;
+    private final SpecialtyService specialtyService;
+    private final TestTypeService testTypeService;
 
     @GetMapping("/admin/dashboard")
     public String dashboard(Model model) {
@@ -24,13 +24,13 @@ public class AdminController {
 
     @GetMapping("/admin/specialties")
     public String specialties(Model model) {
-        model.addAttribute("specialties", specialtyRepository.findAll());
+        model.addAttribute("specialties", specialtyService.findAll());
         return "admin/specialties";
     }
 
     @GetMapping("/admin/test-types")
     public String testTypes(Model model) {
-        model.addAttribute("testTypes", testTypeRepository.findAll());
+        model.addAttribute("testTypes", testTypeService.findAll());
         return "admin/test-types";
     }
 }

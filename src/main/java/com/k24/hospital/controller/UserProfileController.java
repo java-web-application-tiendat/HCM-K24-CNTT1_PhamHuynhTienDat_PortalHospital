@@ -2,20 +2,20 @@ package com.k24.hospital.controller;
 
 import com.k24.hospital.entity.User;
 import com.k24.hospital.entity.UserProfile;
-import com.k24.hospital.repository.UserProfileRepository;
-import com.k24.hospital.repository.UserRepository;
+import com.k24.hospital.service.UserProfileService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
 public class UserProfileController {
 
-    private final UserRepository userRepository;
-    private final UserProfileRepository userProfileRepository;
+    private final UserProfileService userProfileService;
 
     @GetMapping({
             "/patient/profile",
@@ -23,16 +23,9 @@ public class UserProfileController {
             "/admin/profile"
     })
     public String profilePage(Authentication authentication, Model model) {
+        UserProfile profile = userProfileService.getOrCreateProfile(authentication.getName());
 
-        User user = userRepository
-                .findByUsername(authentication.getName())
-                .orElse(null);
-
-        UserProfile profile = userProfileRepository
-                .findByUser(user)
-                .orElse(UserProfile.builder().user(user).build());
-
-        model.addAttribute("user", user);
+        model.addAttribute("user", profile.getUser());
         model.addAttribute("profile", profile);
 
         return "profile/profile";
@@ -45,24 +38,17 @@ public class UserProfileController {
     })
     public String saveProfile(
             Authentication authentication,
-            @ModelAttribute UserProfile profileForm
+            @Valid @ModelAttribute("profile") UserProfile profileForm,
+            BindingResult bindingResult,
+            Model model
     ) {
-        User user = userRepository
-                .findByUsername(authentication.getName())
-                .orElse(null);
+        if (bindingResult.hasErrors()) {
+            UserProfile profile = userProfileService.getOrCreateProfile(authentication.getName());
+            model.addAttribute("user", profile.getUser());
+            return "profile/profile";
+        }
 
-        UserProfile profile = userProfileRepository
-                .findByUser(user)
-                .orElse(new UserProfile());
-
-        profile.setUser(user);
-        profile.setFullName(profileForm.getFullName());
-        profile.setPhone(profileForm.getPhone());
-        profile.setAddress(profileForm.getAddress());
-        profile.setDateOfBirth(profileForm.getDateOfBirth());
-        profile.setGender(profileForm.getGender());
-
-        userProfileRepository.save(profile);
+        User user = userProfileService.saveProfile(authentication.getName(), profileForm);
 
         if (user.getRole().name().equals("ADMIN")) {
             return "redirect:/admin/profile?saved";

@@ -1,7 +1,6 @@
 package com.k24.hospital.controller;
 
 import com.k24.hospital.enums.PrescriptionStatus;
-import com.k24.hospital.repository.PrescriptionRepository;
 import com.k24.hospital.service.PrescriptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,32 +12,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/prescriptions")
 public class PrescriptionController {
 
-    private final PrescriptionRepository prescriptionRepository;
     private final PrescriptionService prescriptionService;
 
     @GetMapping
     public String list(Model model) {
         model.addAttribute(
                 "prescriptions",
-                prescriptionRepository.findByStatus(PrescriptionStatus.WAITING_DISPENSE)
+                prescriptionService.getPrescriptionsByStatus(PrescriptionStatus.WAITING_DISPENSE)
         );
         return "admin/prescriptions";
     }
 
     @GetMapping("/dispense/{id}")
     public String dispense(@PathVariable Long id) {
-
         try {
-
-
             prescriptionService.dispensePrescription(id);
-
-
             return "redirect:/admin/prescriptions?success";
-
         } catch (RuntimeException e) {
-
-
             return "redirect:/admin/prescriptions?stockError";
         }
     }

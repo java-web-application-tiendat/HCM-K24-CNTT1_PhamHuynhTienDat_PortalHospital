@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +21,7 @@ public class MedicalRecordService {
     private final PrescriptionRepository prescriptionRepository;
     private final PrescriptionDetailRepository prescriptionDetailRepository;
     private final MedicineRepository medicineRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public void examine(
@@ -71,5 +74,13 @@ public class MedicalRecordService {
 
         appointment.setStatus(AppointmentStatus.COMPLETED);
         appointmentRepository.save(appointment);
+    }
+
+    public List<MedicalRecord> getRecordsForPatient(String username) {
+        User patient = userRepository.findByUsername(username).orElse(null);
+        if (patient == null) {
+            return Collections.emptyList();
+        }
+        return medicalRecordRepository.findByAppointmentPatient(patient);
     }
 }

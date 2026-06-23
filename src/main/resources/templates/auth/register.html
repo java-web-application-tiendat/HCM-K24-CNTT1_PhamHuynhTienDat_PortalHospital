@@ -78,8 +78,8 @@
 
                     <input type="text"
                            th:field="*{username}"
-                           placeholder="Tên đăng nhập"
-                           required>
+                           placeholder="Tên đăng nhập">
+                    <span class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 
                 </div>
 
@@ -89,8 +89,8 @@
 
                     <input type="email"
                            th:field="*{email}"
-                           placeholder="Nhập email"
-                           required>
+                           placeholder="Nhập email">
+                    <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 
                 </div>
 
@@ -100,8 +100,8 @@
 
                     <input type="password"
                            th:field="*{password}"
-                           placeholder="Nhập mật khẩu"
-                           required>
+                           placeholder="Nhập mật khẩu">
+                    <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 
                 </div>
 

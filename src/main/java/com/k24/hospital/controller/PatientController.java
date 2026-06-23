@@ -1,8 +1,6 @@
 package com.k24.hospital.controller;
 
-import com.k24.hospital.entity.User;
-import com.k24.hospital.repository.MedicalRecordRepository;
-import com.k24.hospital.repository.UserRepository;
+import com.k24.hospital.service.MedicalRecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -14,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/patient")
 public class PatientController {
 
-    private final UserRepository userRepository;
-    private final MedicalRecordRepository medicalRecordRepository;
+    private final MedicalRecordService medicalRecordService;
 
     @GetMapping("/dashboard")
     public String dashboard() {
@@ -24,16 +21,10 @@ public class PatientController {
 
     @GetMapping("/history")
     public String history(Authentication authentication, Model model) {
-
-        User patient = userRepository
-                .findByUsername(authentication.getName())
-                .orElse(null);
-
         model.addAttribute(
                 "records",
-                medicalRecordRepository.findByAppointmentPatient(patient)
+                medicalRecordService.getRecordsForPatient(authentication.getName())
         );
-
         return "patient/history";
     }
 }
